@@ -33,6 +33,44 @@ F1 aerodynamics simulation API. Users send car parameters and receive calculated
 5. **Test files co-located.** `aero.service.spec.ts` lives next to `aero.service.ts`, not in a separate `tests/` folder.
 6. **No logic in app.module.ts.** It just imports modules.
 
+## Commit Rules
+
+Use conventional commits format: `type: short description`
+
+| Type | When to use |
+|------|-------------|
+| `feat:` | new feature or endpoint |
+| `fix:` | bug fix |
+| `docs:` | documentation only |
+| `refactor:` | code change that is not a fix or feature |
+| `test:` | adding or updating tests |
+| `chore:` | config, dependencies, tooling |
+
+Examples:
+```
+feat: add health endpoint
+feat: implement AeroService calculations
+fix: correct downforce formula at speed 0
+docs: add WebSocket events reference
+test: add unit tests for PresetsService
+chore: install Prisma and class-validator
+```
+
+## Comment Rules
+
+- **Language:** English only
+- **When to comment:** Only explain **why** — a hidden constraint, a non-obvious decision, a workaround
+- **Never comment:** what the code does (the code itself explains that), task names, obvious logic
+
+```typescript
+// Good — explains why
+const lift = -downforce || 0; // avoid -0 which fails Object.is equality in Jest
+
+// Bad — explains what (the code already says this)
+// multiply by 0.1 to get lift coefficient
+const Cl = wingAngle * 0.1;
+```
+
 ## NestJS Patterns (Express developer reference)
 
 **Module** = a feature boundary. Declares what it provides and exports.
