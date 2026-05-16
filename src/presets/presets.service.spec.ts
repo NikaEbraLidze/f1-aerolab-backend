@@ -1,3 +1,5 @@
+import { NotFoundException } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import { PresetsService } from './presets.service';
 
 const mockPrisma = {
@@ -37,9 +39,11 @@ describe('PresetsService', () => {
     });
   });
 
-  it('findOne returns null when not found', async () => {
+  it('findOne throws NotFoundException when not found', async () => {
     mockPrisma.preset.findUnique.mockResolvedValue(null);
-    expect(await service.findOne('x')).toBeNull();
+    await expect(service.findOne('x')).rejects.toBeInstanceOf(
+      NotFoundException,
+    );
   });
 
   it('create saves preset and returns it', async () => {
@@ -63,5 +67,22 @@ describe('PresetsService', () => {
     expect(mockPrisma.preset.delete).toHaveBeenCalledWith({
       where: { id: '1' },
     });
+  });
+
+  it('remove throws NotFoundException when Prisma raises P2025', async () => {
+    const p2025 = new Prisma.PrismaClientKnownRequestError(
+      'Record to delete does not exist.',
+      { code: 'P2025', clientVersion: '5.0.0' },
+    );
+    mockPrisma.preset.delete.mockRejectedValue(p2025);
+    await expect(service.remove('missing')).rejects.toBeInstanceOf(
+      NotFoundException,
+    );
+  });
+
+  it('remove rethrows unknown errors unchanged', async () => {
+    const boom = new Error('boom');
+    mockPrisma.preset.delete.mockRejectedValue(boom);
+    await expect(service.remove('x')).rejects.toBe(boom);
   });
 });
