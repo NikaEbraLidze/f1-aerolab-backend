@@ -20,13 +20,17 @@ export class SimulateParamsDto {
 
   @ApiProperty({ description: 'Car weight in kg', minimum: 600, maximum: 1000 })
   @IsNumber()
-  @Min(0)
-  @Max(400)
+  @Min(600)
+  @Max(1000)
   weight: number;
 
-  @ApiProperty({ description: 'Car speed in km/h', minimum: 0, maximum: 400 })
+  @ApiProperty({
+    description: 'Drag coefficient (Cd)',
+    minimum: 0.1,
+    maximum: 2,
+  })
   @IsNumber()
-  @Min(0)
-  @Max(400)
+  @Min(0.1)
+  @Max(2)
   dragCoefficient: number;
 }
