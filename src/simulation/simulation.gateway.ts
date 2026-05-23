@@ -7,9 +7,10 @@ import { UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { SimulationService } from './simulation.service';
 import { SimulateParamsDto } from '../aero/dto/simulate-params.dto';
 import { WsExceptionsFilter } from '../common/filters/ws-exceptions.filter';
+import { corsOrigin } from '../config/cors.config';
 
 @WebSocketGateway({
-  cors: { origin: 'http://localhost:3000' },
+  cors: { origin: corsOrigin },
   namespace: '/',
 })
 @UseFilters(new WsExceptionsFilter('simulate:error'))
