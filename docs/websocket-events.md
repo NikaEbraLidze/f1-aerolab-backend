@@ -42,5 +42,16 @@ Returned immediately after `simulate:update`.
 Returned when parameters fail validation or calculation throws.
 
 ```json
-{ "message": "Invalid parameters: speed must not exceed 400" }
+{
+  "code": "VALIDATION_ERROR",
+  "message": "speed must not be greater than 400",
+  "details": [
+    {
+      "field": "speed",
+      "constraints": ["speed must not be greater than 400"]
+    }
+  ]
+}
 ```
+
+For non-validation errors, `details` is `null`. `code` uses the same values as REST (`VALIDATION_ERROR`, `BAD_REQUEST`, `INTERNAL_ERROR`, etc.).

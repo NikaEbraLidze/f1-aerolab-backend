@@ -99,7 +99,7 @@ nest generate controller feature-name
 |-----------|-------|---------|
 | Client → Server | `simulate:update` | `{ speed, wingAngle, weight, dragCoefficient }` |
 | Server → Client | `simulate:result` | `{ downforce, drag, lift, aeroEfficiency, grip, weightTransfer, chartData }` |
-| Server → Client | `simulate:error` | `{ message }` |
+| Server → Client | `simulate:error` | `{ code, message, details }` |
 
 chartData: 41 points, speed 0–400 km/h in steps of 10.
 
