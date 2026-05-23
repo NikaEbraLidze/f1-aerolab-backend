@@ -21,7 +21,7 @@
    ```bash
    cp .env.example .env
    ```
-   Edit `.env` and set your PostgreSQL password.
+   Edit `.env` and set your PostgreSQL password and `CORS_ORIGIN` (frontend URL, default `http://localhost:3000`).
 
 4. **Run Prisma migrations**
    ```bash
@@ -34,7 +34,7 @@
    ```
 
 Server runs at `http://localhost:3001`
-Swagger docs at `http://localhost:3001/api`
+Swagger docs at `http://localhost:3001/api/docs`
 
 ## Useful Commands
 

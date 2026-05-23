@@ -12,7 +12,7 @@ F1 aerodynamics simulation API. Users send car parameters and receive calculated
 - Socket.io via @nestjs/websockets (real-time)
 - class-validator + class-transformer (DTO validation)
 - @nestjs/config (env vars from .env)
-- @nestjs/swagger (docs at /api)
+- @nestjs/swagger (docs at /api/docs)
 
 ## Module Structure
 
